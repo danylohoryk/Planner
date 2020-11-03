@@ -1,0 +1,42 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="getUsers">
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+    <aura:attribute name="listUsers" type="List"/>
+
+    <lightning:card>
+        <div class="users">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="head">
+                            <div>Full Name</div>
+                        </th>
+                        <th class="head">
+                            <div>Resource Role</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.listUsers}" var="user">
+                        <tr>
+                            <th>
+                                <lightning:accordion
+                                    allowMultipleSectionsOpen="true">
+                                    <lightning:accordionSection label="{!user.Name}">
+                                        <aura:iteration items="{!user.Assignments__r}" var="project">
+                                            <tr>
+                                                <th>{!project.Project_Assign__r.Name}</th>
+                                            </tr>
+                                        </aura:iteration>
+                                    </lightning:accordionSection>
+                                </lightning:accordion>
+                            </th>
+                            <th>
+                                <p>{!user.Profile.Name}</p>
+                            </th>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </lightning:card>
+</aura:component>

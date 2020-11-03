@@ -1,0 +1,87 @@
+.container{
+	width: 100%;
+}
+.invoice-number,
+.for-from,
+.bottom-container{
+	margin: 10px;
+	
+}
+th{
+	background-color: rgb(177, 209, 221);
+}
+table{
+	border-collapse: collapse;
+}
+.bank-requisites,
+.correspondent-banks{
+	line-height: 150%;
+}
+.invoice-number, 
+.for-from,
+.main-table{
+    /* width: 100%; */
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.main-table table{
+	width: 100%;
+    margin-top: 50px;
+}
+.invoice-number table,
+.from table, .for table{
+    width: 300px;
+  
+}
+.for-from{
+    position: relative;
+    padding-right: 10px;
+    margin-right: 20px;
+}
+
+.for{
+	position: absolute;
+	left: 55%;
+	top: 0;
+}
+.main-table th, .main-table td{
+	border: 1px solid rgb(74, 74, 168);
+}
+.invoice-number table td,
+.from table td,
+.for table td{
+	border: 1px solid #fff;
+	padding: 5px;
+	margin-right: 50px;
+
+}
+.bottom-container{
+    margin-left: 10px;
+	padding-top: 20px;
+    border-top: 3px solid black;
+    /* width: 100%; */
+}
+.blue{
+	background-color: rgb(177, 209, 221);
+}
+.rowspan{
+	vertical-align: top;
+}
+.euro-col{
+	text-align: right;
+}
+.total{
+	text-align: left;
+}
+.euro{
+	float: left;
+	margin-left: 5px
+}
+.center{
+	text-align: center;
+}
+
+tbody {
+	border-right: 1px solid rgb(74, 74, 168);
+}

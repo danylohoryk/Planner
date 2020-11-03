@@ -1,0 +1,147 @@
+<apex:page standardController="Account" extensions="Invoice" standardstylesheets="false" renderAs="PDF">
+    <apex:stylesheet value="{!URLFOR($Resource.invoice, 'style.css')}" />
+    <apex:variable var="count" value="{!1}" />
+    <apex:image id="theImage" value="{!$Resource.InvoiceHeader}" />
+    <div class="container">
+        <div class="header">
+
+        </div>
+        <div class="invoice-number">
+            <table>
+                <tr>
+                    <td>Invoice Cycle</td>
+                    <td class="blue">{!invoiceCycle}</td>
+                </tr>
+                <tr>
+                    <td>Number</td>
+                    <td class="blue">{!FLOOR(Account.Contract_Number__c)}{!invoiceNumber}</td>
+                </tr>
+                <tr>
+                    <td>Invoice date</td>
+                    <td class="blue">{!invoiceDate}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="for-from">
+            <div class="from">
+                <table>
+                    <tr>
+                        <td rowspan="3" class="rowspan">
+                            From
+                        </td>
+                        <td class="blue">{!organization.Name}</td>
+                    </tr>
+                    <tr>
+                        <td class="blue">{!organization.Street}</td>
+                    </tr>
+                    <tr>
+                        <td class="blue">{!organization.City + ' ' + organization.Country + ' ' + organization.PostalCode}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="for">
+                <table>
+                    <tr>
+                        <td rowspan="3" class="rowspan">
+                            For
+                        </td>
+                        <td class="blue">{!Account.Name}</td>
+                    </tr>
+                    <tr>
+                        <td class="blue">{!Account.BillingStreet}</td>
+                    </tr>
+                    <tr>
+                        <td class="blue">{!Account.BillingCity + ' ' + Account.BillingCountry + ' ' + Account.BillingPostalCode}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="main-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center">No.</th>
+                        <th style="text-align: center">Developer</th>
+                        <th style="text-align: center">Project</th>
+                        <th style="display: {!If(showRate=='no','none','table-cell')}; text-align:center">Rate</th>
+                        <th style="text-align: center">Hours</th>
+                        <th style="text-align: center">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!projects}" var="project">
+                        <tr>
+                            <td class="center">{!count}</td>
+                            <td>{!project.name}</td>
+                            <td>{!project.project}</td>
+                            
+                            <td style="display: {!If(showRate=='no','none','table-cell')}; text-align:center">
+                                <span style="display: {!If(project.rate=='per month','table-cell','none')};  text-align:center">
+                                    <apex:outputText value="{0, number, integer}">
+                                        <apex:param value="{!project.costRate}" />
+                                    </apex:outputText>{!Account.Currency__c}
+                                </span>
+                                <span style="display: {!If(project.rate=='per hour','table-cell','none')}; text-align:center">
+                                    <apex:outputText value="{0, number, integer}">
+                                        <apex:param value="{!project.costRate}" />
+                                    </apex:outputText>{!Account.Currency__c}/h
+                                </span>
+                            </td>
+                            <td style="text-align:center">{!FLOOR(project.hoursAmount)}</td>
+                            <td style="text-align:right">
+                                <div style='float: left; text-align: left'>{!Account.Currency__c}</div>
+                                <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                    <apex:param value="{!project.amount}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <apex:variable var="count" value="{!count+1}" />
+                    </apex:repeat>
+                    <tr>
+                        <td colspan="{!If(showRate=='no','3','4')}" class="total" style="text-align: right">
+                            <b>Total</b>
+                        </td>
+                        <td style="text-align: center">
+                            <b>{!FLOOR(totalHours)}</b>
+                        </td>
+                        <td class="euro-col">
+                            <b>
+                                <div style='float: left; text-align: left'>{!Account.Currency__c}</div>
+                                <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                    <apex:param value="{!total}" />
+                                </apex:outputText>
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bottom-container">
+            <p>
+                <b>Bank requisites:</b>
+            </p>
+            <div class="bank-requisites">
+                <p>
+                    <b style="display: {!If(Account.Currency__c=='$','none','inline')}">IBAN (EUR): </b>
+                    <b style="display: {!If(Account.Currency__c=='€','none','inline')}">IBAN (USD): </b>{!bankAcc.IBAN__c}
+                    <br/>
+                    <b>Bank Name: </b>{!bankAcc.Bank_Name__c}, {!bankAcc.Bank_Address__c}
+                    <br/>
+                    <b>SWIFT Code: </b>{!bankAcc.Bank_SWIFT_Code__c}
+                </p>
+            </div>
+            <p>
+                <b>Correspondent banks:</b>
+            </p>
+            <div class="correspondent-banks">
+                <p>
+                    <b>Bank Adress:</b> {!bankAcc.Correspondent_Bank_Name__c + ',' + bankAcc.Correspondent_Bank_Address__c}
+                    <br/>
+                    <b>Account:</b> {!bankAcc.Correspondent_Bank_Account__c}
+                    <br/>
+                    <b>SWIFT Code:</b> {!bankAcc.Correspondent_Bank_SWIFT__c}
+                </p>
+            </div>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,82 @@
+<aura:component implements="force:appHostable,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="recordId" type="Id" access="global"/>
+    <aura:attribute name="startDate" type="Date" access="global"/>
+    <aura:attribute name="endDate" type="Date" access="global"/>
+    <aura:attribute name="docType" type="String" access="global"/>
+    <aura:attribute name="showRate" type="String" default="no" access="global"/>
+
+     <!--Custom Styles for Modal Header and Footer--> 
+     <aura:html tag="style">
+         .cuf-content {
+            padding: 0 0rem !important;
+         }
+         .slds-p-around--medium {
+            padding: 0rem !important;
+         }       
+         .slds-modal__content{
+            overflow-y:hidden !important;
+            height:unset !important;
+            max-height:unset !important;
+         }
+         .slds-modal__header, .slds-modal__content{
+            background-color: transparent;
+         }
+         .slds-modal__content:last-child, 
+         .slds-modal__content_has-hidden-footer {
+            box-shadow: none;
+         }
+     </aura:html>
+ 
+     <!--LIGHTNING CARD-->
+     <lightning:card>
+      
+     <!--Modal Header-->  
+     <div class="modal-header slds-modal__header slds-size_1-of-1">
+         <h4 class="title slds-text-heading--medium">Account Info</h4>
+     </div>
+     <!--End Modal Header--> 
+ 
+     <!--VIEW FORM BODY-->
+ 
+   <div class="container">       
+     <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-2">
+              <lightning:input type="date" label="Enter Start date" value="{!v.startDate}" required = "true"/>
+          </div> 
+          <div class="slds-col slds-size_1-of-2">
+              <lightning:input type="date" label="Enter End date" value="{!v.endDate}" required = "true"/>
+          </div>  
+        </div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+              <lightning:select label="Doc Type" value="{!v.docType}">
+                <option value="PDF">PDF</option>
+                <option value="DOCX">DOCX</option>
+              </lightning:select>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+              <lightning:select label="Show Rate" value="{!v.showRate}">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </lightning:select>
+            </div>
+        </div>  
+     
+   </div>  
+               <!-- END OF VIEW FORM BODY-->
+             
+ 
+ 
+     <!--Modal Footer-->
+     <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+       <lightning:button variant="Brand" class="slds-button" label="Generate Invoice" onclick="{!c.generateDocument}"
+       disabled ="{!or(empty(and(v.startDate, v.endDate)))}"
+       />
+       <lightning:button variant="Neutral" class="slds-button" label="Cancel" onclick="{!c.handleClose}"/>
+   </div>
+   <!--End of Modal Footer-->
+ 
+ </lightning:card>
+ <!--END OF VIEW FORM-->
+ 
+</aura:component>

@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="RedirectToVF" standardstylesheets="false">
+    <apex:form >
+        <apex:actionFunction name="test" action="{!downloadPDF}" />
+    </apex:form>
+    
+    <div>Redirect...</div>
+    <script>
+        // kick it off
+        window.onload=function(){
+            test();
+        }; 
+    </script>
+
+</apex:page>

@@ -1,0 +1,21 @@
+.THIS .users {
+    max-width: 400px;
+}
+
+.THIS  th{
+    padding: 3px;
+    border-left: solid 1px gray;
+    border-right: solid 1px gray;
+}
+
+.THIS  .head{
+    border-bottom: solid 1px gray;
+    height: 50px;
+    font-size: medium;
+    color: gray;
+    width: 200px;
+}
+
+.THIS  .arrow svg{
+    width: 10px;
+}
