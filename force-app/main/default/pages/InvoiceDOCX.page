@@ -230,7 +230,7 @@
                         <br/>
                         <b>Bank Name: </b>{!bankAcc.Bank_Name__c}, {!bankAcc.Bank_Address__c}
                         <br/>
-                        <b>SWIFT Code: </b>{!bankAcc.Bank_SWIFT_Code__c}
+                        <b>SWIFT Code: </b>{!bankAcc.Bank_SWIFT_Code__c}eur0
                     </p>
                 </div>
                 <p>
